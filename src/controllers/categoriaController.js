@@ -112,7 +112,6 @@ class CategoriasController {
 
     db.query(q, [id], (err, results) => {
       if (err) return res.json(err);
-
       return res.status(200).json(results[0]);
     });
   };

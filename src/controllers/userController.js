@@ -81,7 +81,6 @@ class UserController {
 
     db.query(q, [email], (err, results) => {
       if (err) return res.json(err);
-
       return res.status(200).json(results[0]);
     });
   };
