@@ -3,7 +3,7 @@ import mysql from 'mysql';
 export const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',      // ou o seu usuário de banco de dados
-  password: 'root',      // ou a senha correta
+  password: '',      // ou a senha correta
   database: 'api' // Verifique se o nome do banco de dados está correto
 });
 
@@ -44,3 +44,10 @@ db.connect((err) => {
 //   `id` INT NOT NULL AUTO_INCREMENT,
 //   `nome` VARCHAR(250) NOT NULL,
 //   PRIMARY KEY (`id`));
+
+// CREATE TABLE avisos (
+//   id INT PRIMARY KEY AUTO_INCREMENT,
+//   descricao VARCHAR(255) NOT NULL,
+//   id_categoria INT NOT NULL,
+//   FOREIGN KEY (id_categoria) REFERENCES categorias(id)
+// );
