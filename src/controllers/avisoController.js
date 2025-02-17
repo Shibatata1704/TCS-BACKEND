@@ -97,7 +97,7 @@ class AvisosController {
       }
     })
     
-    const q = "SELECT * FROM avisos WHERE idCategoria = ?";
+    const q = "SELECT * FROM avisos WHERE id_categoria = ?";
 
     db.query(q, [idCategoria], (err, results) => {
       if (err) return res.json(err);
