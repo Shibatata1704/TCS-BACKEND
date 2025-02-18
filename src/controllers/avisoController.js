@@ -6,7 +6,7 @@ import getToken from "../utils/getToken.js"
 class AvisosController {
   static addAvisos(req, res) {
     console.log(req.body)
-    const {descricao, categoria} = req.body;
+    const {descricao, idCategoria} = req.body;
     const tokenData = getToken(req);
 
     // Verifica se o tokenData é válido antes de continuar
@@ -41,8 +41,8 @@ class AvisosController {
     })
 
     // Verifica se o e-mail já existe no banco
-    const insertQuery = 'INSERT INTO avisos (descricao, id_categoria) VALUES (?, ?)';
-      db.query(insertQuery, [descricao, categoria, ], (err) => {
+    const insertQuery = 'INSERT INTO avisos (descricao, idCategoria) VALUES (?, ?)';
+      db.query(insertQuery, [descricao, idCategoria, ], (err) => {
         if (err) {
           console.error("Erro ao cadastrar categoria: ", err);
           return res.status(500).json({ message: 'Erro ao cadastrar categoria.' });
@@ -97,11 +97,18 @@ class AvisosController {
       }
     })
     
-    const q = "SELECT * FROM avisos WHERE id_categoria = ?";
+    const q = "SELECT * FROM avisos WHERE idCategoria = ?";
 
     db.query(q, [idCategoria], (err, results) => {
       if (err) return res.json(err);
-      return res.status(200).json(results[0]);
+  
+      // Filtra para retornar apenas os campos 'id' e 'descricao'
+      const filteredResults = results.map(result => ({
+        id: result.id,
+        descricao: result.descricao
+      }));
+    
+      return res.status(200).json(filteredResults);
     });
   };
 
@@ -158,7 +165,7 @@ class AvisosController {
       }
 
       // Retorna os dados atualizados
-      res.status(200).json({ nome, id});
+      res.status(200).json({descricao});
     });
   };
 
@@ -197,7 +204,7 @@ class AvisosController {
       }
     })
     
-    const q = "DELETE FROM avisos WHERE `id` = ?";
+    const q = "DELETE FROM avisos WHERE id = ?";
 
     db.query(q, [req.params.id], (err) => {
       if (err) return res.json(err);
