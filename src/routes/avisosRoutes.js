@@ -5,6 +5,7 @@ const AvisosRoutes = Router();
 
 
 // AvisosRoutes.get("/", AvisosController.getAvisos);
+// AvisosRoutes.get("/:id", AvisosController.getAvisosByID);
 AvisosRoutes.get("/:idCategoria", AvisosController.getAvisosByIDCategoria);
 AvisosRoutes.post("/", AvisosController.addAvisos);
 AvisosRoutes.put("/:id", AvisosController.updateAvisos);
