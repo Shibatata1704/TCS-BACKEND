@@ -43,8 +43,8 @@ class AuthController {
 
                     // User authenticated, generate JWT token
                     const userId = result[0].id;  // Assuming the 'id' field in the result is the user ID
-                    const token = createToken(email, result[0].admin);  // Adjust 'isAdmin' or another property as needed
-        
+                    const token = createToken(email, !!result[0].admin);  // Adjust 'isAdmin' or another property as needed
+                    console.log(!!result[0].admin);
         
                     // Insert the token into the whitelist
                     const insertQuery = "INSERT INTO whitelist (email_usuario, token) VALUES (?, ?)";
